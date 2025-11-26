@@ -6,3 +6,4 @@ black
 mypy
 build
 twine
+hatchling
