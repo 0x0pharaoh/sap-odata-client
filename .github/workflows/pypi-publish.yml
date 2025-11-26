@@ -6,13 +6,27 @@ on:
       - "v*.*.*"
 
 jobs:
-  build:
+    build:
     name: Build package
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # IMPORTANT for tags
+
+      - name: Extract version from tag
+        id: extract_version
+        run: |
+          TAG="${GITHUB_REF#refs/tags/}"
+          VERSION="${TAG#v}"
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Update version in pyproject.toml
+        run: |
+          VERSION="${{ steps.extract_version.outputs.VERSION }}"
+          sed -i "s/^version = .*/version = \"${VERSION}\"/" pyproject.toml
 
       - name: Set up Python
         uses: actions/setup-python@v5
