@@ -8,8 +8,6 @@ license = { file = "LICENSE" }
 authors = [{ name = "Your Name" }]
 dependencies = ["httpx>=0.27.0"]
 
-keywords = ["sap", "odata", "s4hana", "httpx", "async"]
-
 [project.urls]
 Homepage = "https://github.com/0x0pharaoh/sap-odata-client"
 Repository = "https://github.com/0x0pharaoh/sap-odata-client"
@@ -30,6 +28,8 @@ line-length = 88
 
 [tool.ruff]
 line-length = 88
+
+[tool.ruff.lint]
 select = ["E", "F"]
 
 [tool.pytest.ini_options]
