@@ -14,7 +14,9 @@ class SAPClient:
         client_secret: str,
         token_url: str,
         api_base: str,
-        sales_endpoint: str = "/sap/opu/odata/sap/API_SALES_ORDER_SRV/A_SalesOrder",
+        sales_endpoint: str = (
+            "/sap/opu/odata/sap/API_SALES_ORDER_SRV/A_SalesOrder"
+        ),
         timeout: int = 30,
     ):
         self.client_id = client_id
@@ -51,8 +53,14 @@ class SAPClient:
         self._token_expiry = now + json_data.get("expires_in", 3600)
         return self._token
 
-    async def _get_csrf_token_and_cookies(self, token: str) -> Tuple[str, httpx.Cookies]:
-        url = f"{self.api_base}/sap/opu/odata/sap/API_SALES_ORDER_SRV"
+    async def _get_csrf_token_and_cookies(
+        self,
+        token: str,
+    ) -> Tuple[str, httpx.Cookies]:
+        url = (
+            f"{self.api_base}/sap/opu/odata/sap/"
+            "API_SALES_ORDER_SRV"
+        )
 
         resp = await self.http.get(
             url,
@@ -67,9 +75,15 @@ class SAPClient:
         csrf = resp.headers.get("x-csrf-token")
         return csrf, resp.cookies
 
-    async def create_sales_order(self, body: Dict[str, Any]) -> Dict[str, Any]:
+    async def create_sales_order(
+        self,
+        body: Dict[str, Any],
+    ) -> Dict[str, Any]:
         token = await self._get_oauth_token()
         csrf, cookies = await self._get_csrf_token_and_cookies(token)
+
+        # Assign cookies to the client (fixes DeprecationWarning)
+        self.http.cookies = cookies
 
         url = f"{self.api_base}{self.sales_endpoint}"
 
@@ -82,7 +96,7 @@ class SAPClient:
                 "x-csrf-token": csrf or "",
                 "Accept": "application/json",
             },
-            cookies=cookies,
         )
         resp.raise_for_status()
+
         return resp.json()

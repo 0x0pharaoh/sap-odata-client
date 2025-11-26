@@ -1,7 +1,7 @@
 import pytest
 import respx
 from httpx import Response
-from sap_client import SAPClient
+from sap_odata_client import SAPClient
 
 
 @pytest.mark.asyncio
