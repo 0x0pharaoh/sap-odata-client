@@ -1,7 +1,8 @@
-httpx>=0.27.0
 pytest
 pytest-asyncio
 respx
-black
 ruff
+black
 mypy
+build
+twine
