@@ -9,7 +9,7 @@ description = "Async SAP S/4HANA OData client with OAuth2 + CSRF support."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
-authors = [{ name = "Your Name" }]
+authors = [{ name = "0x0pharaoh" }]
 dependencies = [
     "httpx>=0.27.0"
 ]

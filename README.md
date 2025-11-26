@@ -3,6 +3,7 @@
 A lightweight async SAP S/4HANA OData Sales Order client.
 
 Features:
+
 - OAuth2 client credentials
 - CSRF token handling
 - Async via httpx
@@ -11,4 +12,5 @@ Features:
 ## Install
 
 ```bash
-pip install sap-client
+pip install sap-odata-client
+```
