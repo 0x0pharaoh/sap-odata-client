@@ -1,6 +1,6 @@
 [project]
 name = "sap-odata-client"
-version = "0.1.1"
+version = "0.1.0"
 description = "Async SAP S/4HANA OData client with OAuth2 + CSRF support."
 readme = "README.md"
 requires-python = ">=3.10"
